@@ -16,6 +16,15 @@ public:
 		_data = (float*) calloc(xRes*yRes, sizeof(float));
 	}
 
+	FloatImage(void){}
+
+	void init(int xResolution, int yResolution)
+	{
+		xRes = xResolution;
+		yRes = yResolution;
+		_data = (float*) calloc(xRes*yRes, sizeof(float));
+	}
+
 	~FloatImage(void)
 	{
 		free(_data);
@@ -42,7 +51,7 @@ public:
 		}
 	}
 
-	unsigned char* getIntPointer()
+	void copyTo(ofImage &image)
 	{
 		// Normalizes and makes an integer array 0-255 with the data
 		normalize();
@@ -50,16 +59,18 @@ public:
 		unsigned char* _intData = (unsigned char *) calloc(xRes*yRes, sizeof(unsigned char));
 		for(int index=0; index< xRes*yRes; index++)
 		{
-			_intData[index] = (int) 255.0f*_data[index];
+			image.getPixelsRef()[index] = (int) 255.0f*_data[index];
 		}
-		return _intData;
 	}
 
-
-	void copyTo(ofImage &image)
+	float operator()(int x, int y)
 	{
-		unsigned char* pixelPointer = image.getPixels();
-		pixelPointer = getIntPointer();
+		return _data[getIndex(x, y)];
+	}
+
+	int getIndex(int x, int y)
+	{
+	    return y*xRes + x;
 	}
 
 private:

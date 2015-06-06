@@ -1,8 +1,8 @@
 #include "ofApp.h"
 #include <iostream>
 
-int xRes = 1024;
-int yRes = 1024;
+int xRes = 600;
+int yRes = 600;
 
 int mouseX;
 int mouseY;
@@ -11,8 +11,8 @@ bool display_pixel_values = false;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
     fractal.init(xRes, yRes);
+    fractal.setMouseVars(mouseX, mouseY);
 
 }
 
@@ -34,7 +34,7 @@ void ofApp::keyPressed(int key){
 			std::exit(0);
 			break;
         case 'v':
-            display_pixel_values = !display_pixel_values;
+            fractal.display_values = !fractal.display_values;
             break;
         default: break;
 	}

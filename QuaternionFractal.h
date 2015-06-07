@@ -57,11 +57,11 @@ public:
 			int y1 = (yRes-1)-y;
 
 			ofVec4f q = convertXY(x1, y1);
-			ofVec4f c (0.285,0.485,0,0);
+			ofVec4f c(0.285,0.485,0,0);
 			int t = 0;
-			while( q.length() < 4.0 && t<100 )
+			while( q.length() < 2.0 && t<100 )
 			{
-				q = q.dot(q) + c;
+				q = q*q + c;
 				t++;
 			}
 			pixelValue = t;
